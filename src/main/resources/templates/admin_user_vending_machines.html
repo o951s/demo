@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Vending Machines</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<h1>Vending Machines for <span th:text="${user.firstName} + ' ' + ${user.lastName}"></span></h1>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Capacity</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="vendingMachine : ${vendingMachines}">
+        <td th:text="${vendingMachine.name}"></td>
+        <td th:text="${vendingMachine.location}"></td>
+        <td th:text="${vendingMachine.capacity}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>Add New Vending Machine</h2>
+<form th:action="@{/admin/user/{id}/vending-machines(id=${user.id})}" method="post">
+    <label for="machineName">Name:</label>
+    <input type="text" id="machineName" name="machineName" required>
+    <br>
+    <label for="location">Location:</label>
+    <input type="text" id="location" name="location" required>
+    <br>
+    <label for="capacity">Capacity:</label>
+    <input type="number" id="capacity" name="capacity" required>
+    <br>
+    <button type="submit">Add Vending Machine</button>
+</form>
+</body>
+</html>

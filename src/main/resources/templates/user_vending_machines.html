@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Vending Machines</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>My Vending Machines</h2>
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Capacity</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Loop through vending machines here -->
+                <!-- Example using Thymeleaf syntax -->
+                <tr th:each="machine : ${vendingMachines}">
+                    <td th:text="${machine.name}"></td>
+                    <td th:text="${machine.location}"></td>
+                    <td th:text="${machine.capacity}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

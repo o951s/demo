@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        h2 {
+            color: #555;
+        }
+        label, input, select, button {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Admin Dashboard</h1>
+    <h2>Create Vending Machine for User</h2>
+    <form id="create-vending-machine-form">
+        <label for="user">Select User:</label>
+        <select id="user" name="userId" required>
+            <option value="" disabled selected>Select User</option>
+            <th:block th:each="user : ${users}">
+                <option th:value="${user.id}"
+                        th:text="${user.firstName} + ' ' + ${user.lastName}"></option>
+            </th:block>
+        </select>
+        <label for="machineName">Machine Name:</label>
+        <input type="text" id="machineName" name="machineName" required>
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required>
+        <label for="capacity">Capacity:</label>
+        <input type="number" id="capacity" name="capacity" required>
+        <button type="submit">Create Vending Machine</button>
+    </form>
+</div>
+<script>
+    document.getElementById('create-vending-machine-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var formData = new FormData(this);
+        var data = {};
+        formData.forEach((value, key) => { data[key] = value });
+
+        fetch('/admin/create-vending-machine?userId=' + data.userId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                machineName: data.machineName,
+                location: data.location,
+                capacity: data.capacity
+            })
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('Vending Machine created successfully');
+                } else {
+                    alert('Error creating Vending Machine');
+                }
+            })
+            .catch(error => {
+                alert('Error creating Vending Machine');
+            });
+    });
+</script>
+</body>
+</html>

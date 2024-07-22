@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Dashboard</title>
+    <!-- Add your CSS and JavaScript links here -->
+</head>
+<body>
+<h1>Welcome, <span th:text="${user.firstName} + ' ' + ${user.lastName}">User</span></h1>
+<p>Email: <span th:text="${user.email}">email@example.com</span></p>
+<!-- Add other user-specific information here -->
+</body>
+</html>
